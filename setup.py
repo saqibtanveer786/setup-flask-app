@@ -14,6 +14,11 @@ setup(
     long_description_content_type="text/markdown",
     long_description=LONG_DESCRIPTION,
     packages=find_packages(),
+    entry_points={
+        'console_scripts': [
+            'setup-flask-app=setup_flask_app.cli:app',  # Command to run your CLI
+        ],
+    },
     keywords=['python', 'flask', 'setup-flask-app', 'auto setup'],
     classifiers=[
         "Development Status :: 1 - Planning",

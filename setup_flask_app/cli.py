@@ -1,6 +1,6 @@
 import typer
 import os
-import time
+from typing_extensions import Annotated
 import shutil
 
 app = typer.Typer()
@@ -29,7 +29,9 @@ def delete_app(app_name):
         shutil.rmtree(app_name)
 
 @app.command()
-def create_app(name: str):
+def create_app(name: str = typer.Argument(), boostrap: Annotated[bool, typer.Option(help="This is to setup boostrap along with app")] = False):
+    if boostrap:
+        print("working")
     delete_app(name)
     
     if not os.path.exists(name):
