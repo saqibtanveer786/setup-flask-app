@@ -5,8 +5,8 @@ import shutil
 
 app = typer.Typer()
 
-directories = ['static', 'templates', 'models', 'views', 'forms']
-files = ['__init__.py', 'routes.py', 'config.py', 'run.py']
+directories = ['static', 'templates']
+files = ['__init__.py']
 
 def create_directories(parent_directory: str ,directories_list: list):
     print("making directories")
@@ -23,7 +23,43 @@ def create_files(parent_directory: str ,files_list: list):
             if not os.path.exists(f"./{parent_directory}/{file}"):
                 open(f"./{parent_directory}/{file}", 'w').close()
                 progress.update(1)
-                
+
+def write_content_into_files(parent_directory: str, files_list: list):
+    for file in files_list:
+        with open(f"{parent_directory}/{file}", 'w') as f:
+            print(f.name)
+            f.write('''
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello_world():
+    return render_template("index.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
+''')
+            
+def copy_template_files(parent_directory: str):
+    dirs = os.listdir('./templates')
+    for dir in dirs:
+        if dir == 'static':
+            print("inside static")
+            files = os.listdir('./templates/static')
+            for file in files:
+                print("inside static forloop")
+                shutil.copy(f"./templates/static/{file}", f"{parent_directory}/static")
+                continue
+
+        if dir == 'templates':
+            print("inside temp")
+            files = os.listdir('./templates/templates')
+            for file in files:
+                print("inside temp forloop")
+                shutil.copy(f"./templates/templates/{file}", f"{parent_directory}/templates")
+                continue
+            
 def delete_app(app_name):
     if os.path.exists(app_name):
         shutil.rmtree(app_name)
@@ -32,7 +68,6 @@ def delete_app(app_name):
 def create_app(name: str = typer.Argument(), boostrap: Annotated[bool, typer.Option(help="This is to setup boostrap along with app")] = False):
     if boostrap:
         print("working")
-    delete_app(name)
     
     if not os.path.exists(name):
         os.makedirs(name)
@@ -41,6 +76,10 @@ def create_app(name: str = typer.Argument(), boostrap: Annotated[bool, typer.Opt
     create_directories(name, directories)
 
     create_files(name, files)
+
+    write_content_into_files(name, files)
+
+    copy_template_files(f"{name}")
 
 
 if __name__ == "__main__":
