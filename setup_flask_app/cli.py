@@ -2,7 +2,7 @@ import typer
 import os
 from typing_extensions import Annotated
 import shutil
-from funcs import create_directories, create_files, copy_template_files, write_content_into_files
+from .funcs import create_directories, create_files, copy_template_files, write_content_into_files
 
 app = typer.Typer()
 
