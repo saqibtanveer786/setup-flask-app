@@ -45,18 +45,14 @@ def copy_template_files(parent_directory: str):
     dirs = os.listdir('./templates')
     for dir in dirs:
         if dir == 'static':
-            print("inside static")
             files = os.listdir('./templates/static')
             for file in files:
-                print("inside static forloop")
                 shutil.copy(f"./templates/static/{file}", f"{parent_directory}/static")
                 continue
 
         if dir == 'templates':
-            print("inside temp")
             files = os.listdir('./templates/templates')
             for file in files:
-                print("inside temp forloop")
                 shutil.copy(f"./templates/templates/{file}", f"{parent_directory}/templates")
                 continue
             
@@ -66,20 +62,26 @@ def delete_app(app_name):
 
 @app.command()
 def create_app(name: str = typer.Argument(), boostrap: Annotated[bool, typer.Option(help="This is to setup boostrap along with app")] = False):
-    if boostrap:
-        print("working")
-    
-    if not os.path.exists(name):
-        os.makedirs(name)
-    
+    try:
 
-    create_directories(name, directories)
+        if boostrap:
+            print("working")
+        
+        if not os.path.exists(name):
+            os.makedirs(name)
+        
 
-    create_files(name, files)
+        create_directories(name, directories)
 
-    write_content_into_files(name, files)
+        create_files(name, files)
 
-    copy_template_files(f"{name}")
+        write_content_into_files(name, files)
+
+        copy_template_files(f"{name}")
+
+    except Exception as e:
+        typer.echo(f"Error setting up app :  {e}")
+        typer.Exit(code=1)
 
 
 if __name__ == "__main__":
