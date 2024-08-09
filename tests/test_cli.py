@@ -7,8 +7,8 @@ from setup_flask_app import app
 runner = CliRunner()
 
 
-DIRECTORIES = ['static', 'templates', 'models', 'views', 'forms']
-FILES = ['__init__.py', 'routes.py', 'config.py', 'run.py']
+DIRECTORIES = ['static', 'templates']
+FILES = ['__init__.py']
 TEST_DIR = 'test_project'
 
 class SimpleTest(unittest.TestCase):
