@@ -1,7 +1,7 @@
 import typer
 import os
 from typing_extensions import Annotated
-from funcs import copy_whole_tree, setup_parent_dir, typer_exit_with_error_display
+from .funcs import copy_whole_tree, setup_parent_dir, typer_exit_with_error_display
 
 app = typer.Typer()
 
