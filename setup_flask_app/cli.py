@@ -1,6 +1,7 @@
 import typer
 import os
 from typing_extensions import Annotated
+from funcs import copy_whole_tree, setup_parent_dir, typer_exit_with_error_display
 
 app = typer.Typer()
 
@@ -14,12 +15,12 @@ def create_app(name: str = typer.Argument(), boostrap: Annotated[bool, typer.Opt
         if boostrap:
             print("working")
         
-        if not os.path.exists(name):
-            os.makedirs(name)
+        setup_parent_dir(name)
+
+        copy_whole_tree(os.path.join('templates', 'basic'), name)
 
     except Exception as e:
-        typer.echo(f"Error setting up app :  {e}")
-        typer.Exit(code=1)
+        typer_exit_with_error_display(f"Error setting up app :  {e}", exit_code=1)
 
 
 if __name__ == "__main__":
