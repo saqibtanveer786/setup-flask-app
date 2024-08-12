@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 DESCRIPTION = 'A CLI to setup a flask app with just one command'
 LONG_DESCRIPTION = 'This is a CLI tool which setup a flask app with just one command. This is to ease devs. They just have to write setup-flask-app and every thing require to stat adding value to their app will be setup automatically.'
 
