@@ -11,8 +11,5 @@ It is to save devs app.
 
 It will setup a app with necessary html and other code written.
 
-Their is an optional argument `--bootstrap` which will setup a boostrap along with the app.
-
-If you want to contribute to this repo please read Contribution.md once.
 
 
